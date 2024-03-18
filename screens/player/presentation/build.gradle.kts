@@ -25,6 +25,12 @@ android {
             )
         }
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -35,15 +41,25 @@ android {
 }
 
 dependencies {
+    implementation(project(":screens:player:domain"))
+    implementation(project(":core:entities"))
+    implementation(project(":core:presentation"))
+    implementation(project(":core:widgets"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
 
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.viewmodel.ktx)
+    implementation(libs.androidx.viewmodel.compose)
+
+    implementation(libs.hilt.navigation.compose)
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.hilt.testing)
 }

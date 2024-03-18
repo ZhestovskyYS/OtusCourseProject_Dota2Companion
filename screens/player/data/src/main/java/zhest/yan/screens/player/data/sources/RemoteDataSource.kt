@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(retrofit: Retrofit) {
 
-    val instance = retrofit.create(Api::class.java)
+    val instance: Api = retrofit.create(Api::class.java)
 
     interface Api {
         @GET("/players/{id}")

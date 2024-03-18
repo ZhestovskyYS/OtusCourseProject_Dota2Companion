@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -33,11 +35,26 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":core:presentation"))
     implementation(project(":screens:main:domain"))
+    implementation(project(":core:entities"))
+    implementation(project(":core:presentation"))
+    implementation(project(":core:widgets"))
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.viewmodel.ktx)
+    implementation(libs.androidx.viewmodel.compose)
+
+    implementation(libs.hilt.navigation.compose)
+
+
+    implementation(libs.hilt)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.hilt.testing)
 }

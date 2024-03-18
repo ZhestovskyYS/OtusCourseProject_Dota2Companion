@@ -4,14 +4,25 @@ import zhest.yan.core.db.Database
 import zhest.yan.core.db.entity.PlayerInfoEntity
 import zhest.yan.screens.player.data.dto.MostPlayedHeroDto
 import zhest.yan.screens.player.data.dto.PlayerDto
+import java.util.Date
 import javax.inject.Inject
+
+private const val DATA_IS_FRESH_PERIOD = 1000 * 60 * 60 // 1 hour
 
 class LocalDataSource @Inject constructor(
     private val db: Database
 ) {
+    private val PlayerInfoEntity.isValidStill: Boolean
+        get() {
+            val now = Date().time
+            val dataLifeTime = now - createdAt
+            return dataLifeTime < DATA_IS_FRESH_PERIOD
+        }
+
     suspend fun getPlayer(profileId: String): PlayerDto? =
         db.playerInfoDao
             .findById(profileId)
+            ?.takeIf { entity -> entity.isValidStill }
             ?.let { entity ->
                 PlayerDto(
                     nickname = entity.nickname,

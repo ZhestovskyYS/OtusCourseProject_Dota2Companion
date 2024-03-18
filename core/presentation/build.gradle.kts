@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "zhest.yan.core.ui"
+    namespace = "zhest.yan.core.presentation"
     compileSdk = 34
 
     defaultConfig {
@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    debugApi(platform(libs.androidx.compose.bom))
     debugApi(libs.androidx.ui.tooling)
     debugApi(libs.androidx.ui.test.manifest)
 
@@ -48,7 +49,6 @@ dependencies {
     api(libs.androidx.lifecycle.compose)
     api(libs.androidx.lifecycle.runtime.ktx)
     api(libs.androidx.lifecycle.extensions)
-    api(libs.material)
     api(libs.coil)
     api(libs.coil.compose)
 
@@ -56,5 +56,10 @@ dependencies {
     api(libs.androidx.ui)
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)
-    api(libs.androidx.material3)
+    api(libs.androidx.ui.foundation)
+    api(libs.androidx.ui.material)
+    api(libs.androidx.ui.material3)
+
+    androidTestApi(platform(libs.androidx.compose.bom))
+    androidTestApi (libs.androidx.ui.test.junit4)
 }

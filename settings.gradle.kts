@@ -31,7 +31,7 @@ include(":app")
 include(":core:db")
 include(":core:net")
 include(":core:presentation")
-include(":core:widjets")
+include(":core:widgets")
 include(":core:main")
 
 include(":screens:main:data")

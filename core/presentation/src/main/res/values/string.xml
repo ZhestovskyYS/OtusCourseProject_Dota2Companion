@@ -4,4 +4,9 @@
     <string name="last_online">Last online</string>
     <string name="profile_link">PROFILE LINK</string>
     <string name="steam_profile_link">STEAM PROFILE LINK</string>
+    <string name="win_rate">Win rate %</string>
+    <string name="losses">Losses</string>
+    <string name="wins">Wins</string>
+    <string name="mmr">MMR</string>
+    <string name="hero_name">Hero name</string>
 </resources>

@@ -24,4 +24,11 @@ interface PlayerInfoDao {
         LIMIT 1
     """)
     suspend fun findById(profileId: String): PlayerInfoEntity?
+
+    @Query("""
+        SELECT * FROM player_info WHERE
+        nickname LIKE :pattern
+        ORDER BY nickname DESC
+    """)
+    suspend fun searchByName(pattern: String): List<PlayerInfoEntity>
 }
