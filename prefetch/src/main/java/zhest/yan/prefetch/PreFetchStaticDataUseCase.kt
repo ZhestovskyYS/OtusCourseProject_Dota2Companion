@@ -72,7 +72,7 @@ class PreFetchStaticDataUseCase @Inject constructor(
     private fun buildImageResUrl(suffix: String) = "$RES_HOST${suffix}"
 
     private interface Api {
-        @GET("/constants/heroes")
+        @GET("api/constants/heroes")
         suspend fun fetchHeroes(): Map<Int, HeroInfoDto>
     }
 }

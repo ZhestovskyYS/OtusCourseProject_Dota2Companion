@@ -12,12 +12,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.dota2.ui.theme.Dota2Theme
+import dagger.hilt.android.AndroidEntryPoint
 import zhest.yan.node.MainScreenNavPoint
 import zhest.yan.screens.player.node.PlayerScreenNavPoint
 
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
 @ExperimentalFoundationApi
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -12,7 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-private const val ENDPOINT = "https://api.opendota.com/api"
+private const val ENDPOINT = "https://api.opendota.com/"
 
 @Module
 @InstallIn(SingletonComponent::class)

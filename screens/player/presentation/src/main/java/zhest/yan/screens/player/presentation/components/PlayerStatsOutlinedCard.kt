@@ -20,7 +20,6 @@ import zhest.yan.core.presentation.R
 @Composable
 internal fun PlayerStatsOutlinedCard(
     modifier: Modifier = Modifier,
-    mmr: String,
     wins: String,
     losses: String,
     winRate: String,
@@ -28,31 +27,6 @@ internal fun PlayerStatsOutlinedCard(
     OutlinedCard(
         modifier = modifier,
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(horizontal = 16.dp, vertical = 12.dp)
-        ) {
-            Text(
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .wrapContentSize()
-                    .widthIn(max = 200.dp),
-                maxLines = 1,
-                style = MaterialTheme.typography.titleMedium,
-                text = stringResource(R.string.mmr),
-            )
-
-            Text(
-                modifier = Modifier
-                    .wrapContentSize()
-                    .align(Alignment.CenterEnd),
-                style = MaterialTheme.typography.bodyMedium,
-                text = mmr
-            )
-        }
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -137,7 +111,6 @@ private fun PlayerStatsOutlinedCard_Preview() {
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
-        mmr = "2500",
         wins = "776",
         losses = "678",
         winRate = "66,87"

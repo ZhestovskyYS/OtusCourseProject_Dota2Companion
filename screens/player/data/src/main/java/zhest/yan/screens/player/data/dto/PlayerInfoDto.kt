@@ -5,14 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PlayerInfoDto(
-    @SerialName("mmr_estimate")
-    val mmr: MmrEstimate,
     val profile: Profile,
-)
-
-@Serializable
-data class MmrEstimate(
-    val estimate: Int? = null,
+    val rankTier: Int?
 )
 
 @Serializable

@@ -5,7 +5,6 @@ data class PlayerInfo(
     val avatar: String,
     val lastOnline: String,
     val hasDotaPlus: Boolean,
-    val mmr: Int,
     val wins: Int,
     val losses: Int,
     val winRate: Float,

@@ -18,15 +18,21 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Surface
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.PullRefreshState
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.pulltorefresh.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -41,10 +47,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import zhest.yan.core.presentation.R
 import zhest.yan.screens.main.domain.PlayerShortInfo
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
@@ -52,11 +60,13 @@ import zhest.yan.screens.main.domain.PlayerShortInfo
 internal fun MainScreenContent(
     modifier: Modifier = Modifier,
     searchFieldValue: TextFieldValue,
-    pullRefreshState: PullToRefreshState,
+    pullRefreshState: PullRefreshState,
+    scaffoldState: ScaffoldState,
     players: List<PlayerShortInfo>,
     lazyColumnState: LazyListState,
     @DrawableRes
     placeHolderDrawableRes: Int,
+    isRefreshing: Boolean,
     isInitialState: Boolean,
     isFabVisible: Boolean,
     onFabIsClicked: () -> Unit,
@@ -66,6 +76,7 @@ internal fun MainScreenContent(
 ) {
     Scaffold(
         modifier,
+        scaffoldState = scaffoldState,
         topBar = {
             AppBar(
                 modifier = Modifier
@@ -97,9 +108,8 @@ internal fun MainScreenContent(
                     )
                 }
             }
-
         },
-        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButtonPosition = FabPosition.End
     ) { paddingValues ->
         Surface(
             modifier = Modifier.consumeWindowInsets(paddingValues)
@@ -107,6 +117,7 @@ internal fun MainScreenContent(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
+                    .pullRefresh(pullRefreshState)
             ) {
                 if (players.isNotEmpty()) {
                     PlayersList(
@@ -124,14 +135,16 @@ internal fun MainScreenContent(
                     )
                 }
 
-                PullToRefreshContainer(
+                PullRefreshIndicator(
                     modifier = Modifier.align(Alignment.TopCenter),
+                    refreshing = isRefreshing,
                     state = pullRefreshState,
                 )
             }
         }
     }
 }
+
 
 @Composable
 @Preview(
@@ -142,6 +155,7 @@ internal fun MainScreenContent(
 )
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 fun MainScreenPreview1() {
     val players = listOf<PlayerShortInfo>()
@@ -159,18 +173,27 @@ fun MainScreenPreview1() {
     }
     var isRefreshing by remember { mutableStateOf(false) }
     var isFabVisible by remember { mutableStateOf(true) }
-    val pullRefreshState = rememberPullToRefreshState {
-        isRefreshing
-    }
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = isRefreshing,
+        onRefresh = {
+            coroutineScope.launch {
+                isRefreshing = true
+                delay(500L)
+                isRefreshing = false
+            }
+        }
+    )
 
     MaterialTheme {
         MainScreenContent(
             modifier = Modifier.fillMaxSize(),
             players = players,
             searchFieldValue = textFieldValue.value,
+            scaffoldState = rememberScaffoldState(),
             pullRefreshState = pullRefreshState,
             lazyColumnState = lazyColumnState,
             placeHolderDrawableRes = R.drawable.dota2_logo_icon,
+            isRefreshing = isRefreshing,
             isInitialState = true,
             isFabVisible = isFabVisible,
             onFabIsClicked = {
@@ -197,6 +220,7 @@ fun MainScreenPreview1() {
 )
 @ExperimentalLayoutApi
 @ExperimentalMaterial3Api
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 fun MainScreenPreview2() {
     val players = listOf(
@@ -290,18 +314,27 @@ fun MainScreenPreview2() {
     }
     var isRefreshing by remember { mutableStateOf(false) }
     var isFabVisible by remember { mutableStateOf(true) }
-    val pullRefreshState = rememberPullToRefreshState {
-        isRefreshing
-    }
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = isRefreshing,
+        onRefresh = {
+            coroutineScope.launch {
+                isRefreshing = true
+                delay(500L)
+                isRefreshing = false
+            }
+        }
+    )
 
     MaterialTheme {
         MainScreenContent(
             modifier = Modifier.fillMaxSize(),
             players = players,
             searchFieldValue = textFieldValue.value,
+            scaffoldState = rememberScaffoldState(),
             pullRefreshState = pullRefreshState,
             lazyColumnState = lazyColumnState,
             placeHolderDrawableRes = R.drawable.dota2_logo_icon,
+            isRefreshing = isRefreshing,
             isInitialState = false,
             isFabVisible = isFabVisible,
             onFabIsClicked = {

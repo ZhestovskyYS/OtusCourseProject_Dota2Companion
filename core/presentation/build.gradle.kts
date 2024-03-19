@@ -52,7 +52,7 @@ dependencies {
     api(libs.coil)
     api(libs.coil.compose)
 
-    api(platform(libs.androidx.compose.bom))
+    api(enforcedPlatform(libs.androidx.compose.bom))
     api(libs.androidx.ui)
     api(libs.androidx.ui.graphics)
     api(libs.androidx.ui.tooling.preview)

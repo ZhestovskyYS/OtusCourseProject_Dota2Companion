@@ -23,8 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
     private val repository: Repository,
-    private val openLinkUseCase: OpenLinkUseCase = OpenLinkUseCase(),
 ) : ViewModel(), MainScreenContract {
+    private val openLinkUseCase = OpenLinkUseCase()
 
     private val _state = MutableStateFlow(MainScreenContract.State())
     override val state = _state.asStateFlow()

@@ -60,7 +60,6 @@ fun PlayerInfoScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
-                mmr = player.mmr.toString(),
                 wins = player.wins.toString(),
                 losses = player.losses.toString(),
                 winRate = "%.2f".format(player.winRate),
@@ -106,7 +105,6 @@ private fun PlayerInfoScreenContent_Preview() {
                     lastOnline = "12 hours ago",
                     avatar = "null",
                     hasDotaPlus = true,
-                    mmr = 6653,
                     losses = 3160,
                     wins = 3823,
                     winRate = 54.75f,

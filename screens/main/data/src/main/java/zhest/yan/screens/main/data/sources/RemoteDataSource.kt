@@ -11,7 +11,7 @@ class RemoteDataSource @Inject constructor(retrofit: Retrofit) {
     val instance: Api = retrofit.create(Api::class.java)
 
     interface Api {
-        @GET("search")
+        @GET("api/search")
         suspend fun searchPlayer(
             @Query("q") pattern: String
         ): List<PlayerDto>

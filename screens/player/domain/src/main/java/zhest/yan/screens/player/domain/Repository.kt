@@ -45,7 +45,6 @@ class Repository @Inject constructor(
         avatar = avatar,
         lastOnline = lastOnline,
         hasDotaPlus = hasDotaPlus,
-        mmr = mmr,
         wins = wins,
         losses = losses,
         winRate = winRate,
@@ -74,7 +73,7 @@ class Repository @Inject constructor(
         }
 
 
-        val (mmr, profile) = mainPlayerInfo.await()
+        val (profile, _) = mainPlayerInfo.await()
         val winLoseStats = playerWinLoseStats.await()
         val hero = mostPlayedHero.await()
 
@@ -83,7 +82,6 @@ class Repository @Inject constructor(
             avatar = profile.avatarUrl,
             lastOnline = fetchDate(profile.lastLogin),
             hasDotaPlus = profile.hasDotaPlus,
-            mmr = mmr.estimate ?: 0,
             wins = winLoseStats.wins,
             losses = winLoseStats.losses,
             winRate = winLoseStats.winRate,
@@ -144,7 +142,6 @@ class Repository @Inject constructor(
         avatar,
         lastOnline,
         hasDotaPlus,
-        mmr,
         wins,
         losses,
         winRate,

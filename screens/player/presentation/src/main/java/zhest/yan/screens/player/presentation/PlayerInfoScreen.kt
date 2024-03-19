@@ -22,22 +22,16 @@ fun PlayerInfoScreen(
     viewModel: PlayerInfoScreenViewModel = viewModel(),
 ) {
     val (state, event, effect) = use(viewModel)
-
     val context = LocalContext.current
-    val error by remember {
-        derivedStateOf { state.errorText }
-    }
 
     effect.collectInLaunchedEffect { incomingEffect ->
         when (incomingEffect) {
             is PlayerScreenContract.Effect.OpenLink -> incomingEffect.run {
                 context.open()
             }
+            is PlayerScreenContract.Effect.DisplayErrorMessage ->
+                Toast.makeText(context, incomingEffect.errorMessage, Toast.LENGTH_SHORT).show()
         }
-    }
-
-    error?.let { message ->
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
 

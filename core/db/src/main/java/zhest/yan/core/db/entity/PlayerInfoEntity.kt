@@ -18,8 +18,6 @@ data class PlayerInfoEntity(
     val lastOnline: String,
     @ColumnInfo(name = "has_dota_plus")
     val hasDotaPlus: Boolean,
-    @ColumnInfo(name = "mmr")
-    val mmr: Int,
     @ColumnInfo(name = "wins")
     val wins: Int,
     @ColumnInfo(name = "losses")
